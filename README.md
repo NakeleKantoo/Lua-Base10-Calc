@@ -7,4 +7,4 @@ A Lua base-10 calculator
 lua calc.lua <number> <operation> <number>
 ```
 
-The operations are + - x /
+The operations are + - x / ^ !

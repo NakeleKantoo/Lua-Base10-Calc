@@ -86,6 +86,36 @@ function divideThem(fi,se)
     return count, rest
 end
 
+function multiplyThem(fi,se)
+    local obj = fi
+    for i=1,tonumber(se)-1 do
+        obj = addThem(obj,padString(fi,#obj))
+    end
+    return obj
+end
+
+function factorThem(fi)
+    local where = fi
+    local obj = fi
+    while isEqual(where,padString("0",#where))==false do
+        where = subtractThem(where,padString("1",#where))
+        obj = multiplyThem(obj,padString(where,#obj))
+    end
+    return obj
+end
+
+function powerThem(fi,se)
+    local where = se
+    local obj = padString("1",#fi)
+    while isEqual(where,padString("0",#where))==false do
+        where = subtractThem(where,padString("1",#where))
+        obj = multiplyThem(obj,padString(fi,#obj))
+    end
+    return obj
+end
+
+--local pi = divideThem("22","07")
+
 if #first>#second then
     second=padString(second,#first)
 elseif #second>#first then
@@ -97,13 +127,13 @@ if operation=="+" then
 elseif operation=="-" then
     result = subtractThem(first,second)
 elseif operation=="x" then
-    local obj = first
-    for i=1,tonumber(second)-1 do
-        obj = addThem(obj,padString(first,#obj))
-    end
-    result=obj
+    result = multiplyThem(first,second)
 elseif operation=="/" then
     result, rest = divideThem(first,second)
+elseif operation=="!" then
+    result = factorThem(first)
+elseif operation=="^" then
+    result = powerThem(first,second)
 end
 
 print(result, rest)
